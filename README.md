@@ -21,7 +21,7 @@ To run the project locally and test the implemented features, follow these steps
 2. Install dependencies: `npm install`
 3. Start the compilations: `npm start`
 4. To start the Server : `npm run serve`
-5. To start the data structure tests : `npm run tests`
+5. To start the data structure tests : `npm test`
 
 Visit the respective routes (e.g., /authorize, /token) to interact with the authentication server.
 
