@@ -25,6 +25,12 @@ To run the project locally and test the implemented features, follow these steps
 
 Visit the respective routes (e.g., /authorize, /token) to interact with the authentication server.
 
+
+
+Download the Postman collection to test the authentication endpoints:
+
+[Download Postman Collection](https://drive.google.com/file/d/1ecGCIpaynYIOQSO9asE3zy9uBY_BZdag/view?usp=sharing)
+
 ## Contributors
 
 - Harsh Arora
