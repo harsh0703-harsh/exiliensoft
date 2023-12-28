@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "target": "ESNext",
+        "module": "NodeNext",
+        "outDir": "./dist",
+        "types": [
+            "node"
+        ],
+        "rootDir": "./",
+        "strict": false,
+        "esModuleInterop": true,
+    //    "moduleResolution": "node" // Add this line
+    },
+    "exclude": [
+        "node_modules"
+    ],
+    "include": ["./**/*.ts"] // Adjust the path to match your project structure
+}
