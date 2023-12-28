@@ -18,8 +18,10 @@ This project sets up an Authentication Server with support for the OIDC protocol
 To run the project locally and test the implemented features, follow these steps:
 
 1. Clone the repository: `git clone [repository_url]`
-2. Install dependencies: `npm install` or `yarn install`
-3. Start the server: `npm start` or `yarn start`
+2. Install dependencies: `npm install`
+3. Start the compilations: `npm start`
+4. To start the Server : `npm server`
+5. To start the data structure tests : `npm tests`
 
 Visit the respective routes (e.g., /authorize, /token) to interact with the authentication server.
 
