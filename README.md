@@ -29,7 +29,7 @@ Visit the respective routes (e.g., /authorize, /token) to interact with the auth
 
 Download the Postman collection to test the authentication endpoints:
 
-[Download Postman Collection](https://drive.google.com/file/d/1zqQzIWyl_i6Jk73AgUsE_Ya85Fi8p0vh/view?usp=sharing)
+[Download Postman Collection](https://drive.google.com/file/d/1_fHoKCjbGbjKZ2hF9XpsjMpa9kuwZZOO/view?usp=sharing)
 
 ## Contributors
 
