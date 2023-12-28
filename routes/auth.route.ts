@@ -35,7 +35,7 @@ authRouters.get("/authorize" , async (req , res)=>{
 
     if(!provider){
 
-        res.status(400).send("Provider Not Found");
+        return res.status(400).send("Provider Not Found");
 
     }
     
@@ -45,7 +45,7 @@ authRouters.get("/authorize" , async (req , res)=>{
 
     if(!client){
 
-        res.status(400).send("Provder try to login with avaialable provders");
+        return res.status(400).send("Provder try to login with avaialable provders");
 
     }else{
 
@@ -60,7 +60,7 @@ authRouters.get("/authorize" , async (req , res)=>{
 
         )
 
-        res.status(200).json(
+        return res.status(200).json(
 
           { url :  `${client.issuer_url}?client_id=${client.client_id}&response_type=code&scope=openid email&redirect_uri=http://localhost:4000/redirect_here&state=${state}&nonce=${nonce}&access_type=offline&prompt=consent`}
         )
@@ -77,7 +77,7 @@ authRouters.post("/register",async(req,res)=>{
 
     if(!body.email || !body.password){
 
-        res.status(400).json(
+        return res.status(400).json(
 
             {
                 error : "please provide all the details"
@@ -90,7 +90,7 @@ authRouters.post("/register",async(req,res)=>{
 
         if(isExist){
 
-            res.status(200).json( { error : "The email is already in used"} )
+            return res.status(200).json( { error : "The email is already in used"} )
 
         }else{
 
@@ -102,7 +102,7 @@ authRouters.post("/register",async(req,res)=>{
                 }
             );
 
-            res.status(200).send(user);
+            return res.status(200).send(user);
 
         }
 
@@ -123,7 +123,7 @@ authRouters.get("/redirect_here",async (req,res)=>{
 
         if(!isSessionAvailable){
 
-            res.status(400).json({
+            return res.status(400).json({
 
                 error : 'Session Not Found'
 
@@ -174,12 +174,12 @@ authRouters.get("/redirect_here",async (req,res)=>{
 
 
 
-                res.status(200).json(response.data)
+                return res.status(200).json(response.data)
 
             }else{
 
 
-                res.status(400).json({
+                return res.status(400).json({
 
                     error : 'Invalid Credentials'
                 })
@@ -194,7 +194,7 @@ authRouters.get("/redirect_here",async (req,res)=>{
 
         console.log(err);
 
-        res.status(500).send("Internal Server Error")
+        return res.status(500).send("Internal Server Error")
 
     }
 })
@@ -215,7 +215,7 @@ authRouters.post("/generate/access_token",async (req,res)=>{
 
         if(!client){
 
-            res.status(400).json(
+            return res.status(400).json(
 
                { error : "invalid provider.."}
             )
@@ -241,11 +241,11 @@ authRouters.post("/generate/access_token",async (req,res)=>{
     
                 if(response.data){
 
-                    res.status(200).json(response.data)
+                    return res.status(200).json(response.data)
     
                 }else{
 
-                    res.status(400).json(
+                    return res.status(400).json(
                         {
                             error : "Invalid Refresh Code"
                         }
@@ -254,7 +254,7 @@ authRouters.post("/generate/access_token",async (req,res)=>{
 
             }catch(err){
 
-                res.status(500).json({
+                return res.status(500).json({
                     error : err.message
                 })
 
