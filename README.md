@@ -27,8 +27,6 @@ Visit the respective routes (e.g., /authorize, /token) to interact with the auth
 
 ## Contributors
 
-- [Your Name]
+- Harsh Arora
 
 Feel free to reach out to the project contributor for any questions or assistance.
-
-Happy coding!
