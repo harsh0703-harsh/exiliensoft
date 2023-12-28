@@ -4,13 +4,23 @@ import authRouters from './routes/auth.route.js';
 import connectToMongoDB from './schema/connection.js';
 import { Client } from './schema/client.schema.js';
 import userRouters from './routes/user.route.js';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+import * as path from "path"
 
 const app = express();
 connectToMongoDB()
 
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 app.use('/auth',authRouters);
-app.use("/user",userRouters)
+app.use("/user",userRouters);
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});  
 
 app.get("/providers" , async (req, res)=>{
 

@@ -37,16 +37,6 @@
         <!-- Sign-up options -->
         <label for="signup-options">Choose a sign-up option:</label>
 
-        <!-- Login form (add your own form fields as needed) -->
-        <form action="your_server_side_login_handler.php" method="post">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
-
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
-
-            <button type="submit">Login</button>
-        </form>
 
         <!-- Google Consent Page Link -->
         <div class="signup-link">
@@ -60,7 +50,7 @@
 
         event.preventDefault();
     
-        fetch('http://localhost:4000/authorize?provider=google')
+        fetch('http://localhost:4000/auth/authorize?provider=google')
             .then(response => response.json())
             .then(data => {
 

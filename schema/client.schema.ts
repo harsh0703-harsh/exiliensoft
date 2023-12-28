@@ -10,7 +10,8 @@ export interface IClient extends Document {
     client_secret: string;
     is_personal : boolean;
     issuer_url : string;
-    code_exchange_url : string
+    code_exchange_url : string;
+    revoke_url : string;
    
 }
 
@@ -26,6 +27,7 @@ const clientSchema = new Schema({
     is_personal : { type : Boolean , required : true},
     issuer_url : { type : String , required : true },
     code_exchange_url : { type : String , required : true},
+    revoke_url : { type : String , required : true}
 
 });
 

@@ -1,10 +1,6 @@
 import express  from "express"
 import dotenv from 'dotenv';
 import axios from "axios";
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
-import * as path from "path"
-
 import connectToMongoDB from "../schema/connection.js";
 import { generateRandomString } from "../constants/configs.js";
 import { hashPassword,verifyGoogleToken } from "../security/user.security.js";
@@ -20,13 +16,6 @@ const authRouters = express.Router();
 authRouters.use(express.json());
 connectToMongoDB()
 
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-authRouters.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});  
 
 
 authRouters.get("/authorize" , async (req , res)=>{
@@ -62,7 +51,7 @@ authRouters.get("/authorize" , async (req , res)=>{
 
         return res.status(200).json(
 
-          { url :  `${client.issuer_url}?client_id=${client.client_id}&response_type=code&scope=openid email&redirect_uri=http://localhost:4000/redirect_here&state=${state}&nonce=${nonce}&access_type=offline&prompt=consent`}
+          { url :  `${client.issuer_url}?client_id=${client.client_id}&response_type=code&scope=openid email&redirect_uri=http://localhost:4000/auth/redirect_here&state=${state}&nonce=${nonce}&access_type=offline&prompt=consent`}
         )
     }
 
@@ -140,7 +129,7 @@ authRouters.get("/redirect_here",async (req,res)=>{
             data.append('client_id',is_client.client_id),
             data.append('client_secret',is_client.client_secret)
             data.append('grant_type', 'authorization_code');
-            data.append('redirect_uri', 'http://localhost:4000/redirect_here');
+            data.append('redirect_uri', 'http://localhost:4000/auth/redirect_here');
             data.append("access_type","offline"),
             data.append("prompt","consent")
 
@@ -241,6 +230,18 @@ authRouters.post("/generate/access_token",async (req,res)=>{
     
                 if(response.data){
 
+                    // revoke the token, so they can't use that again ..
+
+                    const revokeParams = new URLSearchParams()
+                    revokeParams.append('token',body.refresh_token)
+
+                    await axios.post(`${client.revoke_url}`,revokeParams,{
+                        
+                        headers : {
+                            'Content-Type':'application/x-www-form-urlencoded'
+                        }
+                    })
+
                     return res.status(200).json(response.data)
     
                 }else{
@@ -255,7 +256,7 @@ authRouters.post("/generate/access_token",async (req,res)=>{
             }catch(err){
 
                 return res.status(500).json({
-                    error : err.message
+                    error : "Invalid Token , Please try to login again.."
                 })
 
             }
@@ -264,7 +265,6 @@ authRouters.post("/generate/access_token",async (req,res)=>{
 
     }
 })
-
 
 
 export default authRouters;
